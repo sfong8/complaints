@@ -165,7 +165,7 @@ tool_list = [
     {
         "toolSpec": {
             "name": "generateResponse",
-            "description": """Generate a response based on the user's query and the retrieved context (complaints).""",
+            "description": """Generate a response based on the user's query and the retrieved context (complaints). Only use this if the user wants insights or summary of the complaints.""",
             "inputSchema": {
                 "json": {
                     "type": "object",
@@ -248,7 +248,7 @@ def handle_response(response_message):
                 user_query = tool_use_block['input']['user_query']
                 context_df_str = tool_use_block['input']['context_df']
                 try:
-                    response = getResponse(user_query, pd.read_csv(pd.compat.StringIO(context_df_str)))
+                    response = getResponse(user_query,context_df_str)
                     follow_up_content_blocks.append({
                         "toolResult": {
                             "toolUseId": tool_use_block['toolUseId'],
